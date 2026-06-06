@@ -2,28 +2,36 @@ pipeline {
     agent {
         label 'linux'
     }
-    
+
      tools {
         nodejs "node 24.16.0"
      }
 
      stages {
+
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/anaadila/pgats-ci.git']]])
+                git branch: 'master',
+                    url: 'https://github.com/anaadila/pgats-ci.git'
             }
         }
 
-        stage('Instalando Yarn e dependências') {
+        stage('Instalando Yarn') {
             steps {
                 sh 'npm install -g yarn'
-                sh 'yarn'
             }
+        }
+
+        stage('Instalando Dependências') {
+            steps {
+                sh 'yarn install'
+            }
+
         }
 
         stage('Instalando Browsers do Playwright') {
             steps {
-                sh 'yarn playwright install'
+                sh 'yarn playwright install --with-deps'
             }
         }
 
