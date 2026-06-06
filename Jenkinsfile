@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'linux'
+        label 'mestre'
     }
 
      tools {
@@ -18,26 +18,26 @@ pipeline {
 
         stage('Instalando Yarn') {
             steps {
-                sh 'npm install -g yarn'
+                bat 'npm install -g yarn'
             }
         }
 
         stage('Instalando Dependências') {
             steps {
-                sh 'yarn install'
+                bat 'yarn install'
             }
 
         }
 
         stage('Instalando Browsers do Playwright') {
             steps {
-                sh 'yarn playwright install --with-deps'
+                bat 'yarn playwright install --with-deps'
             }
         }
 
         stage('Executando testes E2E') {
             steps {
-                sh 'yarn run e2e'
+                bat 'yarn run e2e'
             }
         }
      }
