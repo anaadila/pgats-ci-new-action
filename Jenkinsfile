@@ -7,7 +7,7 @@ pipeline {
      stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/anaadila/pgats-ci.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/anaadila/pgats-ci.git']]])
             }
         }
 
