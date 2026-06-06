@@ -1,5 +1,8 @@
 pipeline {
-    agent any
+    agent {
+        label 'linux'
+    }
+    
      tools {
         nodejs "node 24.16.0"
      }
