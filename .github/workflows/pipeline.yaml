@@ -35,7 +35,7 @@ env:
   NODE_ENV: 'test'
 
 jobs:
-  # ===== CODE QUALITY =====
+  # ===== CODE QUALITY ===== 
   code_quality:
     name: '🔍 MegaLinter'
     runs-on: ubuntu-latest
