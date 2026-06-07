@@ -106,7 +106,8 @@ module.exports = {
     ['jest-junit', { 
       outputDirectory: 'reports', 
       outputName: 'junit.xml' 
-    }]
+    }],
+    'jest-ctrf-json-reporter'
   ],
 
   // Automatically reset mock state before every test
