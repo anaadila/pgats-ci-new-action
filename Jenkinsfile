@@ -9,10 +9,15 @@ pipeline {
 
      stages {
 
-        stage('Build') {
+        stage('Setup Environment') {
             steps {
+                // Install dependencies
                 bat 'npm install -g yarn'
+
+                // Install project dependencies
                 bat 'yarn install'
+
+                // Install Playwright browsers and dependencies
                 bat 'yarn playwright install --with-deps'
             }
         }
@@ -20,6 +25,12 @@ pipeline {
         stage('Unity Tests') {
             steps {
                 bat 'yarn run test'
+            }
+        }
+
+        stage('Mutation Tests') {
+            steps {
+                bat 'yarn run test:mutation'
             }
         }
 
