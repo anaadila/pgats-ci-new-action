@@ -66,5 +66,5 @@ O workflow principal está em `.github/workflows/pipeline.yaml` e executa as seg
 ---
 
 💜⚡️
-
+ 
 # pgats-ci
