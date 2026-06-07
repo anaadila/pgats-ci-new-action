@@ -14,6 +14,15 @@ concurrency:
 on:
   workflow_dispatch:
     description: 'Manual trigger for full pipeline'
+    inputs:
+      run_mutation:
+        description: 'Rodar testes de mutação?'
+        type: boolean
+        default: true
+      run_megalint:
+        description: 'Rodar testes de MegaLint?'
+        type: boolean
+        default: true
   push:
     branches:
       - master
@@ -32,6 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     continue-on-error: true
+    if: github.event_name != 'workflow_dispatch' || inputs.run_megalint == true
     
     steps:
       - name: '📥 Checkout repository'
@@ -65,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: code_quality
-    if: always()
+    if: '!cancelled()'
     
     steps:
       - name: '📥 Checkout repository'
@@ -85,7 +95,7 @@ jobs:
 
       - name: '📊 Upload coverage reports'
         uses: actions/upload-artifact@v4
-        if: always()
+        if: success() || failure()
         with:
           name: unit-test-coverage
           path: reports/coverage/lcov-report/
@@ -117,7 +127,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: code_quality
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
+    if: (github.event_name == 'workflow_dispatch' && inputs.run_mutation) || github.event_name == 'push'
     
     steps:
       - name: '📥 Checkout repository'
@@ -137,7 +147,7 @@ jobs:
 
       - name: '📊 Upload mutation reports'
         uses: actions/upload-artifact@v4
-        if: always()
+        if: success() || failure()
         with:
           name: mutation-test-report
           path: reports/mutation/
@@ -149,7 +159,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: code_quality
-    if: always()
+    if: '!cancelled()'
     
     steps:
       - name: '📥 Checkout repository'
@@ -172,7 +182,7 @@ jobs:
 
       - name: '📊 Upload E2E reports'
         uses: actions/upload-artifact@v4
-        if: always()
+        if: success() || failure()
         with:
           name: playwright-report
           path: playwright-report/
