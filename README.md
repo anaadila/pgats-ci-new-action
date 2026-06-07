@@ -38,16 +38,30 @@
 
 ## Pipeline do GitHub Actions
 
-A automação do projeto é controlada pelos arquivos de workflow no diretório `.github/workflows`. O GitHub Actions executa os seguintes passos principais:
+O workflow principal está em `.github/workflows/pipeline.yaml` e executa as seguintes etapas:
 
-- instala dependências com `yarn`
-- executa os testes de unidade
-- executa os testes de mutação com o Stryker
-- executa os testes end-to-end com Playwright
-- gera relatórios dos testes em HTML
-- publica resultados do build conforme a configuração do GitHub Actions
+- code quality com `MegaLinter`
+- testes unitários com `yarn run test`
+- testes de mutação com `yarn run test:mutation`
+- testes E2E com `yarn run e2e`
 
-> Se você estiver rodando localmente, use os comandos npm/yarn descritos acima. O GitHub Actions aproveita o mesmo fluxo definido nos workflows.
+### Detalhes do workflow
+
+- Disparos suportados:
+  - `push` na branch `master`
+  - `pull_request` direcionado para `master`
+  - `workflow_dispatch` manual
+- O `workflow_dispatch` tem inputs configuráveis:
+  - `run_mutation` para ativar/desativar testes de mutação
+  - `run_megalint` para ativar/desativar MegaLinter
+- O workflow usa `concurrency` para cancelar execuções anteriores do mesmo branch
+- Artefatos de relatório são enviados para:
+  - `megalinter-reports`
+  - `unit-test-coverage`
+  - `mutation-test-report`
+  - `playwright-report`
+
+> Localmente, use os mesmos comandos descritos acima. O workflow GitHub Actions reflete esse fluxo de validação.
 
 ---
 
