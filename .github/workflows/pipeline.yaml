@@ -90,7 +90,6 @@ jobs:
           report-path: './ctrf/*.json'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: always()
 
   mutation_tests:
     needs: megalinter
