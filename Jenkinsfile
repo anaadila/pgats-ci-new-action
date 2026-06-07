@@ -28,11 +28,11 @@ pipeline {
             }
         }
 
-       /* stage('Mutation Tests') {
+        stage('Mutation Tests') {
             steps {
                 bat 'yarn run test:mutation'
             }
-        }*/
+        }
 
         stage('E2E Tests') {
             steps {

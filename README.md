@@ -36,6 +36,19 @@
 13. Execute a aplicação com `yarn start`
 14. Acesse a aplicação publicada [neste link](https://pgats-ci-example.netlify.app)
 
+## Pipeline do Jenkins
+
+A automação do projeto é controlada pelo arquivo `Jenkinsfile` no diretório raiz. O Jenkins executa os seguintes passos principais:
+
+- instala dependências com `yarn`
+- executa os testes de unidade
+- executa os testes de mutação com o Stryker
+- executa os testes end-to-end com Playwright
+- gera relatórios dos testes em HTML
+- publica resultados do build conforme a configuração do Jenkins
+
+> Se você estiver rodando localmente, use os comandos npm/yarn descritos acima. O Jenkins aproveita o mesmo fluxo definido no `Jenkinsfile`.
+
 ---
 
 💜⚡️
