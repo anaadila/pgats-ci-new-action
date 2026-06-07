@@ -36,18 +36,18 @@
 13. Execute a aplicação com `yarn start`
 14. Acesse a aplicação publicada [neste link](https://pgats-ci-example.netlify.app)
 
-## Pipeline do Jenkins
+## Pipeline do GitHub Actions
 
-A automação do projeto é controlada pelo arquivo `Jenkinsfile` no diretório raiz. O Jenkins executa os seguintes passos principais:
+A automação do projeto é controlada pelos arquivos de workflow no diretório `.github/workflows`. O GitHub Actions executa os seguintes passos principais:
 
 - instala dependências com `yarn`
 - executa os testes de unidade
 - executa os testes de mutação com o Stryker
 - executa os testes end-to-end com Playwright
 - gera relatórios dos testes em HTML
-- publica resultados do build conforme a configuração do Jenkins
+- publica resultados do build conforme a configuração do GitHub Actions
 
-> Se você estiver rodando localmente, use os comandos npm/yarn descritos acima. O Jenkins aproveita o mesmo fluxo definido no `Jenkinsfile`.
+> Se você estiver rodando localmente, use os comandos npm/yarn descritos acima. O GitHub Actions aproveita o mesmo fluxo definido nos workflows.
 
 ---
 
