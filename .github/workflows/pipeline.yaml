@@ -93,27 +93,21 @@ jobs:
 
       - name: '📈 Publish test results'
         uses: dorny/test-reporter@v1
-        if: always()
+        if: (success() || failure())
         with:
           name: 'Unit Test Results'
           path: reports/junit.xml
           reporter: jest-junit
-          summary-delta-report: true
-          insights-report: true
-          flaky-rate-report: true
-          fail-rate-report: true
-          slowest-report: true
-          upload-artifact: true
-          report-path: './ctrf/*.json'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: '💬 Comment PR with test results'
         uses: ctrf-io/github-test-reporter@v1
-        if: always() && github.event_name == 'pull_request'
+        if: (success() || failure()) && github.event_name == 'pull_request'
         with:
           report-path: './ctrf/*.json'
           pull-request-report: true
+          summary-report: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
