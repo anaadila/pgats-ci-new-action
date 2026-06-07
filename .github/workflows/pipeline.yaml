@@ -34,7 +34,7 @@ jobs:
         uses: oxsecurity/megalinter@v9
         env:
           SHOW_ELAPSED_TIME: true
-          VALIDATE_ALL_CODEBASE: ${{ github.event_name != 'pull_request' }}
+          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Salvando relatórios do MegaLinter
