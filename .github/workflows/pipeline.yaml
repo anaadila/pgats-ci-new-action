@@ -31,8 +31,9 @@ jobs:
           
       - name: Rodando MegaLinter
         continue-on-error: true
-        uses: oxsecurity/megalinter/packages/megalinter-runner@v9
+        uses: oxsecurity/megalinter@v9
         env:
+          MEGALINTER_RUNNER: "runner"
           SHOW_ELAPSED_TIME: true
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
