@@ -16,9 +16,7 @@ on:
 
 jobs:
 
-# Unit Tests
-
-unit_tests:
+  unit_tests:
     name: 'Unit Tests'
     runs-on: ubuntu-latest
     steps:
@@ -45,7 +43,7 @@ unit_tests:
           name: unit-test-report
           path: reports/coverage/lcov-report/
 
-mutation_tests:
+  mutation_tests:
     name: 'Mutation Tests'
     runs-on: ubuntu-latest
     steps:
@@ -73,7 +71,7 @@ mutation_tests:
           path: reports/mutation/
 
 
-e2e_tests:
+  e2e_tests:
     name: 'E2E Tests'
     runs-on: ubuntu-latest
     steps:
