@@ -23,6 +23,8 @@ jobs:
   megalinter:
     name: 'MegaLinter'
     runs-on: ubuntu-latest
+    #Remover depois
+    if: github.event_name == 'workflow_dispatch'
 
     steps:
       - uses: actions/checkout@v4
@@ -51,8 +53,7 @@ jobs:
 
   unit_tests:
     needs: megalinter
-    # if: always()
-    if: github.event_name == 'workflow_dispatch'
+    if: always()
     name: 'Unit Tests'
     runs-on: ubuntu-latest
     steps:
