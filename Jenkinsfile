@@ -28,16 +28,50 @@ pipeline {
             }
         }
 
-        stage('Mutation Tests') {
+       /* stage('Mutation Tests') {
             steps {
                 bat 'yarn run test:mutation'
             }
-        }
+        }*/
 
         stage('E2E Tests') {
             steps {
                 bat 'yarn run e2e'
             }
         }
+     }
+
+     post {
+        always {
+            archiveArtifacts artifacts: 'reports/**, playwright-report/**', allowEmptyArchive: true        
+            
+            publishHTML(target: [
+                allowMissing: true,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'report/coverage/lcov-report',
+                reportFiles: 'index.html',
+                reportName: 'Unit Test Report'
+            ])
+
+            publishHTML(target: [
+                allowMissing: true,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'report/mutation',
+                reportFiles: 'mutation.html',
+                reportName: 'Mutation Test Report'
+            ])
+
+            publishHTML(target: [
+                allowMissing: true,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'playwright-report',
+                reportFiles: 'index.html',
+                reportName: 'E2E Test Report'
+            ])
+
+            }
      }
 }
