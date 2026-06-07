@@ -37,7 +37,7 @@ env:
 jobs:
   # ===== CODE QUALITY =====
   code_quality:
-    name: '🔍 Code Quality - MegaLinter'
+    name: '🔍 MegaLinter'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     continue-on-error: true
