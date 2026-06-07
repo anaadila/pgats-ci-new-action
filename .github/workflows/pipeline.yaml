@@ -23,7 +23,6 @@ jobs:
   megalinter:
     name: 'MegaLinter'
     runs-on: ubuntu-latest
-    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4
@@ -31,12 +30,19 @@ jobs:
           fetch-depth: 0 
           
       - name: Rodando MegaLinter
+        id: megalinter_step
+        continue-on-error: true
         uses: oxsecurity/megalinter@v9
         env:
           SHOW_ELAPSED_TIME: true
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCKER_IMAGE_CACHE: true
+
+      - name: Reportar status do Linter
+        if: steps.megalinter_step.outcome == 'failure'
+        run: |
+          echo "::warning:: O MegaLinter encontrou problemas, mas a pipeline continuou conforme configurado."
 
       - name: Salvando relatórios do MegaLinter
         uses: actions/upload-artifact@v4
