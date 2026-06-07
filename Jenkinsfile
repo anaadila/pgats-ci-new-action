@@ -9,13 +9,6 @@ pipeline {
 
      stages {
 
-        stage('Checkout') {
-            steps {
-                git branch: 'master',
-                    url: 'https://github.com/anaadila/pgats-ci.git'
-            }
-        }
-
         stage('Instalando Yarn') {
             steps {
                 bat 'npm install -g yarn'
