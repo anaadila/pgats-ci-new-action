@@ -33,10 +33,11 @@ jobs:
         continue-on-error: true
         uses: oxsecurity/megalinter@v9
         env:
-          MEGALINTER_RUNNER: "runner"
+          DOCKER_IMAGE_CACHE: true
           SHOW_ELAPSED_TIME: true
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ENABLE: JAVASCRIPT,TYPESCRIPT,JSON,PRETTIER,ESLINT,JEST,PLAYWRIGHT,SPELL,COPYPASTE,HTML,CSS,MARKDOWN,YAML
 
       - name: Salvando relatórios do MegaLinter
         uses: actions/upload-artifact@v4
